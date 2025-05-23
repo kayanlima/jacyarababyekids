@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jaciara Baby & Kids</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Fredoka', sans-serif; }
+    body { background: #fffaf5; color: #6A2E98; }
+    header { background: #ffffff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #F99F38; }
+    .logo { height: 60px; }
+    nav { display: flex; flex-wrap: wrap; gap: 16px; }
+    nav a { text-decoration: none; color: #6A2E98; font-weight: 600; font-size: 14px; }
+
+    /* Modal Styles */
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
+    .modal-content { background: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 90%; max-width: 500px; border-radius: 8px; position: relative; }
+    .close { color: #aaa; position: absolute; top: 10px; right: 15px; font-size: 28px; font-weight: bold; cursor: pointer; }
+    .close:hover, .close:focus { color: black; }
+    .modal-content input, .modal-content select, .modal-content textarea { width: 100%; padding: 8px; margin: 8px 0; }
+    .modal-content button { padding: 8px 16px; margin-top: 8px; cursor: pointer; }
+
+    .banner { background: linear-gradient(90deg, #F99F38 0%, #EC74A7 100%); text-align: center; padding: 40px 20px; }
+    .banner h1 { color: white; font-size: 32px; margin-bottom: 10px; }
+    .banner p { font-size: 18px; color: #fff; margin-bottom: 20px; }
+    .banner button { background: #F99F38; color: white; border: none; padding: 10px 20px; border-radius: 30px; font-size: 16px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+
+    .categorias { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; background: #D1F0F7; padding: 30px 10px; }
+    .categoria { text-align: center; max-width: 100px; }
+    .categoria img { width: 60px; margin-bottom: 8px; }
+    .categoria span { font-size: 13px; color: #6A2E98; }
+
+    .produtos { display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 20px; padding: 30px 10px; }
+    .produto-card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; text-align: center; }
+    .produto-card img { max-width: 100%; height: auto; border-radius: 4px; }
+    .produto-card h3 { margin: 10px 0 5px; font-size: 18px; color: #6A2E98; }
+    .produto-card p { font-size: 14px; margin: 5px 0; }
+    .produto-card .price { font-weight: bold; margin-top: 8px; }
+    .produto-card .delete-btn { background: transparent; border: none; color: #E74C3C; cursor: pointer; margin-top: 8px; }
+
+    footer { text-align: center; font-size: 12px; padding: 20px; background: #FDE6F2; color: #6A2E98; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo-jaciara.png" alt="Jaciara Baby & Kids" class="logo">
+    <nav>
+      <a href="#">Passeio</a>
+      <a href="#">Móveis</a>
+      <a href="#">Kit Berço</a>
+      <a href="#">Roupas</a>
+      <a href="#">Alimentação</a>
+      <a href="#">Brinquedos</a>
+      <a href="#">Ofertas</a>
+      <a href="#" id="admin-link">Admin</a>
+    </nav>
+  </header>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" data-close="login-modal">&times;</span>
+      <h2>Login Admin</h2>
+      <input id="username" placeholder="Usuário">
+      <input id="password" type="password" placeholder="Senha">
+      <button id="login-btn">Entrar</button>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div id="admin-panel" class="modal">
+    <div class="modal-content">
+      <span class="close" data-close="admin-panel">&times;</span>
+      <h2>Painel Admin</h2>
+      <!-- Seção de Categorias -->
+      <div>
+        <h3>Adicionar Categoria</h3>
+        <input id="cat-name" placeholder="Nome da Categoria">
+        <input id="cat-img" placeholder="URL da Imagem">
+        <button id="add-cat">Adicionar Categoria</button>
+      </div>
+      <hr>
+      <!-- Seção de Produtos -->
+      <div>
+        <h3>Adicionar Produto</h3>
+        <input id="prod-name" placeholder="Nome do Produto">
+        <input id="prod-img" placeholder="URL da Imagem">
+        <input id="prod-price" placeholder="Preço (ex: 99.90)">
+        <textarea id="prod-desc" rows="3" placeholder="Descrição"></textarea>
+        <select id="prod-cat"></select>
+        <button id="add-prod">Adicionar Produto</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="banner">
+    <h1>Novidades Jaciara Baby & Kids</h1>
+    <p>Venha conferir a nova coleção Pituchinhus!</p>
+    <button>Clica aqui e confira</button>
+  </section>
+
+  <section class="categorias" id="categorias-container"></section>
+  <section class="produtos" id="produtos-container"></section>
+
+  <footer>
+    Projeto de exemplo para a loja Jaciara Baby & Kids.<br> Todos os direitos reservados.
+  </footer>
+
+  <script>
+    // Dados iniciais ou de localStorage
+    let categories = JSON.parse(localStorage.getItem('categories')) || [
+      { name: 'Passeio', img: 'https://via.placeholder.com/60' },
+      { name: 'Móveis', img: 'https://via.placeholder.com/60' },
+      { name: 'Kit Berço', img: 'https://via.placeholder.com/60' },
+      { name: 'Roupas', img: 'https://via.placeholder.com/60' },
+      { name: 'Alimentação', img: 'https://via.placeholder.com/60' },
+      { name: 'Brinquedos', img: 'https://via.placeholder.com/60' }
+    ];
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+
+    // Renderização
+    function renderCategories() {
+      const container = document.getElementById('categorias-container');
+      container.innerHTML = '';
+      categories.forEach(cat => {
+        const div = document.createElement('div');
+        div.className = 'categoria';
+        div.innerHTML = `<img src="${cat.img}" alt="${cat.name}"><span>${cat.name}</span>`;
+        container.appendChild(div);
+      });
+      populateCategorySelect();
+    }
+    function renderProducts() {
+      const container = document.getElementById('produtos-container');
+      container.innerHTML = '';
+      products.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = 'produto-card';
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <div class="price">R$ ${parseFloat(p.price).toFixed(2)}</div>
+          <p>Categoria: ${p.cat}</p>
+          <button class="delete-btn" data-index="${i}">Excluir</button>
+        `;
+        container.appendChild(card);
+      });
+      // Evento delete
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = btn.dataset.index;
+          products.splice(idx, 1);
+          localStorage.setItem('products', JSON.stringify(products));
+          renderProducts();
+        });
+      });
+    }
+
+    function populateCategorySelect() {
+      const sel = document.getElementById('prod-cat');
+      sel.innerHTML = '';
+      categories.forEach(cat => {
+        const opt = document.createElement('option'); opt.value = cat.name; opt.textContent = cat.name;
+        sel.appendChild(opt);
+      });
+    }
+
+    renderCategories();
+    renderProducts();
+
+    // Modal controls
+    function openModal(id) { document.getElementById(id).style.display = 'block'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    document.getElementById('admin-link').addEventListener('click', e => { e.preventDefault(); openModal('login-modal'); });
+    document.querySelectorAll('.close').forEach(btn => btn.addEventListener('click', () => closeModal(btn.dataset.close)));
+
+    // Login logic (exemplo simples)
+    document.getElementById('login-btn').addEventListener('click', () => {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user === 'admin' && pass === 'senha123') {
+        closeModal('login-modal');
+        openModal('admin-panel');
+      } else alert('Credenciais inválidas');
+    });
+
+    // Adicionar categoria
+    document.getElementById('add-cat').addEventListener('click', () => {
+      const name = document.getElementById('cat-name').value.trim();
+      const img = document.getElementById('cat-img').value.trim();
+      if (name && img) {
+        categories.push({ name, img });
+        localStorage.setItem('categories', JSON.stringify(categories));
+        renderCategories();
+        document.getElementById('cat-name').value = '';
+        document.getElementById('cat-img').value = '';
+      } else alert('Preencha todos os campos');
+    });
+
+    // Adicionar produto
+    document.getElementById('add-prod').addEventListener('click', () => {
+      const name = document.getElementById('prod-name').value.trim();
+      const img = document.getElementById('prod-img').value.trim();
+      const price = document.getElementById('prod-price').value.trim();
+      const desc = document.getElementById('prod-desc').value.trim();
+      const cat = document.getElementById('prod-cat').value;
+      if (name && img && price && desc && cat) {
+        products.push({ name, img, price, desc, cat });
+        localStorage.setItem('products', JSON.stringify(products));
+        renderProducts();
+        document.getElementById('prod-name').value = '';
+        document.getElementById('prod-img').value = '';
+        document.getElementById('prod-price').value = '';
+        document.getElementById('prod-desc').value = '';
+      } else alert('Preencha todos os campos de produto');
+    });
+
+    // Fechar modais ao clicar fora
+    window.onclick = e => { if (e.target.classList.contains('modal')) closeModal(e.target.id); };
+  </script>
+</body>
+</html>
