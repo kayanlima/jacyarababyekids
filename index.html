@@ -26,7 +26,7 @@
     /* Carousel of category icons */
     .carousel-icons { background:#D1F0F7; overflow:hidden; padding:15px 0; }
     .carousel-inner { display:flex; width:max-content; }
-    .carousel-item { flex:0 0 25%; text-align:center; padding:0 10px; } /* Note: This implies 4 items for carousel, JS animation handles continuous scroll */
+    .carousel-item { flex:0 0 25%; text-align:center; padding:0 10px; }
     .icon-circle { width:60px; height:60px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,0.1); margin:0 auto 8px; }
     .icon-circle i { font-size:24px; color:#EC74A7; }
     .carousel-item span { font-size:13px; color:#6A2E98; display:block; }
@@ -35,10 +35,10 @@
     .section-title { font-size:24px; color:#EF5FA2; text-align:center; margin:30px 0 15px; }
 
     /* Slider Section */
-    .slider-section { position:relative; padding:0 20px 40px; } /* Reduced horizontal padding for nav buttons */
+    .slider-section { position:relative; padding:0 20px 40px; }
     .slider-container { overflow:hidden; }
     .slider-inner { display:flex; transition:transform 0.5s ease-in-out; }
-    .slider-item { flex:0 0 33.333%; padding:0 10px; } /* Default: 3 items */
+    .slider-item { flex:0 0 33.333%; padding:0 10px; }
     .produto-card { background:#fff; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.05); padding:12px; text-align:center; display:flex; flex-direction:column; justify-content:space-between; height:320px; }
     .produto-card img { max-width:100%; border-radius:8px; height:160px; object-fit:cover; margin-bottom:10px; }
     .produto-card h3 { font-size:18px; color:#6A2E98; margin:8px 0 5px; }
@@ -50,9 +50,9 @@
     .delete-btn { color:#E74C3C; }
     .btn-group { display:flex; justify-content:center; margin-top:8px; }
 
-    .slider-nav { position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; background:rgba(0,0,0,0.5); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; z-index:10; }
-    .slider-prev { left:5px; } /* Adjusted for closer proximity to edge */
-    .slider-next { right:5px; } /* Adjusted for closer proximity to edge */
+    .slider-nav { position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; background:rgba(0,0,0,0.5); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; }
+    .slider-prev { left:10px; }
+    .slider-next { right:10px; }
 
     /* Modal Styles */
     .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); justify-content:center; align-items:center; z-index:1000; }
@@ -85,29 +85,25 @@
     footer { text-align:center; font-size:12px; padding:15px; background:#FDE6F2; color:#6A2E98; }
 
     /* Responsive adjustments */
-    @media(max-width:900px) {
-      .slider-item { flex:0 0 50%; } /* 2 items */
-    }
+    @media(max-width:900px) { .slider-item { flex:0 0 50%; } }
     @media(max-width:600px) {
       header { flex-direction:column; align-items:flex-start; }
       nav { flex-direction:column; width:100%; }
       nav a { font-size:12px; margin:6px 0; }
       .banner h1 { font-size:24px; }
       .banner p { font-size:14px; }
-      .carousel-item { flex:0 0 33.333%; } /* 3 items for icon carousel on small screens, might need more copies for smooth loop */
-      .slider-item { flex:0 0 100%; padding:0 4px; } /* 1 item */
+      .carousel-item { flex:0 0 33.33%; }
+      .slider-item { flex:0 0 100%; padding:0 4px; }
       .slider-nav { width:30px; height:30px; }
       .produto-card { height:auto; }
-      .produto-card img { height:100px; }
-      .slider-section { padding:0 5px 40px; } /* Ensure nav buttons are accessible */
-      .slider-prev { left:0px; }
-      .slider-next { right:0px; }
+      .slider-item img { height:100px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo-jaciara.png" alt="Jaciara Baby & Kids" class="logo"> <nav>
+    <img src="logo-jaciara.png" alt="Jaciara Baby & Kids" class="logo">
+    <nav>
       <a href="kit-berco.html">Kit Berço</a>
       <a href="roupas.html">Roupas</a>
       <a href="alimentacao.html">Alimentação</a>
@@ -118,12 +114,14 @@
     </nav>
   </header>
 
+  <!-- Banner principal -->
   <section class="banner">
     <h1>Novidades Jaciara Baby & Kids</h1>
     <p>Venha conferir a nova coleção Pituchinhus!</p>
     <button>Clique aqui e confira</button>
   </section>
 
+  <!-- Carrossel de ícones de categorias -->
   <section class="carousel-icons">
     <div class="carousel-inner" id="carousel-icons-inner">
       <div class="carousel-item">
@@ -146,6 +144,7 @@
         <div class="icon-circle"><i class="fas fa-couch"></i></div>
         <span>Kit Berço</span>
       </div>
+      <!-- cópias para loop -->
       <div class="carousel-item">
         <div class="icon-circle"><i class="fas fa-tshirt"></i></div>
         <span>Roupas</span>
@@ -154,21 +153,10 @@
         <div class="icon-circle"><i class="fas fa-utensils"></i></div>
         <span>Alimentação</span>
       </div>
-       <div class="carousel-item">
-        <div class="icon-circle"><i class="fas fa-gamepad"></i></div>
-        <span>Brinquedos</span>
-      </div>
-      <div class="carousel-item">
-        <div class="icon-circle"><i class="fas fa-star"></i></div>
-        <span>Ofertas</span>
-      </div>
-      <div class="carousel-item">
-        <div class="icon-circle"><i class="fas fa-couch"></i></div>
-        <span>Kit Berço</span>
-      </div>
     </div>
   </section>
 
+  <!-- Seção Novidades -->
   <div class="slider-section">
     <h2 class="section-title">Novidades</h2>
     <div class="slider-container">
@@ -178,6 +166,7 @@
     <div class="slider-nav slider-next" id="next-novidades"><i class="fas fa-chevron-right"></i></div>
   </div>
 
+  <!-- Seção Destaques -->
   <div class="slider-section">
     <h2 class="section-title">Destaques</h2>
     <div class="slider-container">
@@ -187,6 +176,7 @@
     <div class="slider-nav slider-next" id="next-destaques"><i class="fas fa-chevron-right"></i></div>
   </div>
 
+  <!-- Modal Login Admin -->
   <div id="login-modal" class="modal">
     <div class="modal-content">
       <span class="close" data-close="login-modal">&times;</span>
@@ -197,6 +187,7 @@
     </div>
   </div>
 
+  <!-- Modal Painel Admin -->
   <div id="admin-panel" class="modal">
     <div class="modal-content">
       <span class="close" data-close="admin-panel">&times;</span>
@@ -215,6 +206,7 @@
     </div>
   </div>
 
+  <!-- Modal Carrinho -->
   <div id="cart-modal" class="modal">
     <div class="modal-content">
       <span class="close" data-close="cart-modal">&times;</span>
@@ -224,6 +216,7 @@
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     Projeto de exemplo para a loja Jaciara Baby & Kids.<br>
     Todos os direitos reservados.
@@ -231,15 +224,7 @@
 
 <script>
   // Estado inicial
-  let products = JSON.parse(localStorage.getItem('products')) || [
-    // Sample products to get started if localStorage is empty
-    { name: "Conjunto Bebê Florido", img: "https://via.placeholder.com/160x160/FFC0CB/000000?Text=Produto1", price: "79.90", desc: "Lindo conjunto florido para bebês.", section: "novidade" },
-    { name: "Macacão Ursinho", img: "https://via.placeholder.com/160x160/ADD8E6/000000?Text=Produto2", price: "99.50", desc: "Macacão confortável com tema de ursinho.", section: "novidade" },
-    { name: "Vestido Festa Princesa", img: "https://via.placeholder.com/160x160/E6E6FA/000000?Text=Produto3", price: "120.00", desc: "Vestido elegante para ocasiões especiais.", section: "novidade" },
-    { name: "Kit Mamadeiras", img: "https://via.placeholder.com/160x160/90EE90/000000?Text=Produto4", price: "150.75", desc: "Kit completo com 3 mamadeiras.", section: "destaque" },
-    { name: "Chocalho Colorido", img: "https://via.placeholder.com/160x160/FFFFE0/000000?Text=Produto5", price: "25.00", desc: "Brinquedo divertido e estimulante.", section: "destaque" },
-    { name: "Sapatinho Bebê", img: "https://via.placeholder.com/160x160/DDA0DD/000000?Text=Produto6", price: "45.90", desc: "Sapatinho macio e confortável.", section: "destaque" }
-  ];
+  let products = JSON.parse(localStorage.getItem('products')) || [];
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   let isAdmin = false;
 
@@ -253,34 +238,23 @@
       const item = document.createElement('div');
       item.className = 'slider-item';
       const btns = isAdmin ?
-        `<button class="edit-btn" data-index="${i}" title="Editar">✎</button>
-         <button class="delete-btn" data-index="${i}" title="Excluir">🗑</button>` : '';
+        `<button class=\"edit-btn\" data-index=\"${i}\">✎</button>
+         <button class=\"delete-btn\" data-index=\"${i}\">🗑</button>` : '';
       const html = `
-        <div class="produto-card">
-          <img src="${p.img}" alt="${p.name}">
+        <div class=\"produto-card\">
+          <img src=\"${p.img}\" alt=\"${p.name}\">
           <h3>${p.name}</h3>
           <p>${p.desc}</p>
-          <div class="price">R$ ${parseFloat(p.price).toFixed(2)}</div>
-          <div class="btn-group">
+          <div class=\"price\">R$ ${parseFloat(p.price).toFixed(2)}</div>
+          <div class=\"btn-group\">
             ${btns}
-            <button class="add-cart" data-index="${i}">+ Carrinho</button>
+            <button class=\"add-cart\" data-index=\"${i}\">+ Carrinho</button>
           </div>
         </div>
       `;
       item.innerHTML = html;
       if (p.section === 'novidade') novInner.appendChild(item);
-      // A product can be in both sections if needed, but typically one or the other.
-      // For this example, if you want a product in both, it should be duplicated in the products array with different section or handled differently.
-      // The current logic will clone if it is to be in both, if (p.section === 'destaque') destInner.appendChild(item.cloneNode(true));
-      // For simplicity, assuming a product is either novidade OR destaque.
-      // If you want distinct items, ensure 'destaque' items are separate.
-      if (p.section === 'destaque') {
-          const destItem = document.createElement('div'); // Create a new element for the destaques slider
-          destItem.className = 'slider-item';
-          destItem.innerHTML = html; // Use the same HTML content
-          destInner.appendChild(destItem);
-      }
-
+      if (p.section === 'destaque') destInner.appendChild(item.cloneNode(true));
     });
     attachProductListeners();
   }
@@ -293,17 +267,14 @@
         cart.push(prod);
         localStorage.setItem('cart', JSON.stringify(cart));
         renderCart();
-        alert(`${prod.name} adicionado ao carrinho!`); // User feedback
       };
     });
     if (isAdmin) {
       document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.onclick = () => {
-          if(confirm('Tem certeza que deseja excluir este produto?')) {
-            products.splice(btn.dataset.index, 1);
-            localStorage.setItem('products', JSON.stringify(products));
-            renderSliders(); renderAdminList();
-          }
+          products.splice(btn.dataset.index, 1);
+          localStorage.setItem('products', JSON.stringify(products));
+          renderSliders(); renderAdminList();
         };
       });
       document.querySelectorAll('.edit-btn').forEach(btn => {
@@ -328,23 +299,18 @@
     products.forEach((p, i) => {
       const div = document.createElement('div'); div.className = 'admin-item';
       div.innerHTML = `<span>${p.name} - R$ ${parseFloat(p.price).toFixed(2)}</span>
-                       <div>
-                         <button class="admin-edit" data-index="${i}">Editar</button>
-                         <button class="admin-delete" data-index="${i}">Excluir</button>
-                       </div>`;
+                       <button class=\"admin-edit\" data-index=\"${i}\">Editar</button>
+                       <button class=\"admin-delete\" data-index=\"${i}\">Excluir</button>`;
       list.appendChild(div);
     });
-    // Attach listeners for buttons inside admin list
-    document.querySelectorAll('#admin-produtos .admin-delete').forEach(btn => {
+    document.querySelectorAll('.admin-delete').forEach(btn => {
       btn.onclick = () => {
-         if(confirm('Tem certeza que deseja excluir este produto?')) {
-            products.splice(btn.dataset.index, 1);
-            localStorage.setItem('products', JSON.stringify(products));
-            renderSliders(); renderAdminList();
-         }
+        products.splice(btn.dataset.index, 1);
+        localStorage.setItem('products', JSON.stringify(products));
+        renderSliders(); renderAdminList();
       };
     });
-    document.querySelectorAll('#admin-produtos .admin-edit').forEach(btn => {
+    document.querySelectorAll('.admin-edit').forEach(btn => {
       btn.onclick = () => {
         const idx = btn.dataset.index;
         const p = products[idx];
@@ -354,8 +320,7 @@
         document.getElementById('prod-price').value = p.price;
         document.getElementById('prod-desc').value = p.desc;
         document.getElementById('prod-section').value = p.section;
-        // No need to openModal('admin-panel') as it's already open if these buttons are visible.
-        // Or ensure it is open if it could have been closed: openModal('admin-panel');
+        openModal('admin-panel');
       };
     });
   }
@@ -363,15 +328,11 @@
   // Renderiza carrinho
   function renderCart() {
     const cont = document.getElementById('cart-items'); cont.innerHTML = '';
-    if (cart.length === 0) {
-        cont.innerHTML = '<p>Seu carrinho está vazio.</p>';
-        return;
-    }
     cart.forEach((item, i) => {
       const div = document.createElement('div'); div.className = 'cart-item';
-      div.innerHTML = `<img src="${item.img}" alt="${item.name}">
+      div.innerHTML = `<img src=\"${item.img}\" alt=\"${item.name}\">
                        <span>${item.name} - R$ ${parseFloat(item.price).toFixed(2)}</span>
-                       <button class="remove-cart" data-index="${i}" title="Remover item">&#x1F5D1;</button>`; // Unicode trash icon
+                       <button class=\"remove-cart\" data-index=\"${i}\">&#x1F5D1;</button>`;
       cont.appendChild(div);
     });
     document.querySelectorAll('.remove-cart').forEach(btn => {
@@ -389,8 +350,8 @@
   function closeAll() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('open')); }
 
   // Eventos de abertura de modais
-  document.getElementById('admin-link').onclick = (e) => { e.preventDefault(); openModal('login-modal'); };
-  document.getElementById('cart-link').onclick = () => { renderCart(); openModal('cart-modal'); }; // Ensure cart is rendered before opening
+  document.getElementById('admin-link').onclick = () => openModal('login-modal');
+  document.getElementById('cart-link').onclick = () => openModal('cart-modal');
   document.querySelectorAll('.close').forEach(btn => btn.onclick = () => closeAll());
   window.onclick = e => { if (e.target.classList.contains('modal')) closeAll(); };
 
@@ -398,12 +359,12 @@
   document.getElementById('login-btn').onclick = () => {
     const u = document.getElementById('username').value;
     const p = document.getElementById('password').value;
-    if (u === 'admin' && p === 'senha123') { // Super insecure, for demo only!
+    if (u === 'admin' && p === 'senha123') {
       isAdmin = true;
       closeAll();
-      renderAdminList(); // Render admin list before opening panel
       openModal('admin-panel');
-      renderSliders(); // Re-render sliders to show admin buttons
+      renderSliders();
+      renderAdminList();
     } else {
       alert('Credenciais inválidas');
     }
@@ -417,25 +378,16 @@
     const price = document.getElementById('prod-price').value.trim();
     const desc = document.getElementById('prod-desc').value.trim();
     const section = document.getElementById('prod-section').value;
-
-    // Basic validation for price
-    if (isNaN(parseFloat(price)) || parseFloat(price) <= 0) {
-        alert('Por favor, insira um preço válido.');
-        return;
-    }
-
     if (name && img && price && desc) {
-      const productData = { name, img, price: parseFloat(price).toFixed(2), desc, section };
-      if (idx !== '') { // Editing existing product
-        products[parseInt(idx, 10)] = productData;
-      } else { // Adding new product
-        products.push(productData);
+      if (idx !== '') {
+        products[idx] = { name, img, price, desc, section };
+      } else {
+        products.push({ name, img, price, desc, section });
       }
       localStorage.setItem('products', JSON.stringify(products));
       closeAll();
       renderSliders();
-      renderAdminList(); // Update list in admin panel
-      // Clear form fields
+      renderAdminList();
       document.getElementById('prod-id').value = '';
       document.getElementById('prod-name').value = '';
       document.getElementById('prod-img').value = '';
@@ -450,15 +402,11 @@
   document.getElementById('checkout-btn').onclick = () => {
     if (cart.length === 0) { alert('Carrinho vazio'); return; }
     let msg = 'Olá, gostaria de realizar o pedido:';
-    let total = 0;
     cart.forEach(item => {
-      const itemPrice = parseFloat(item.price);
-      msg += `\n- ${item.name} (R$ ${itemPrice.toFixed(2)})`;
-      total += itemPrice;
+      msg += `\n- ${item.name} (R$ ${parseFloat(item.price).toFixed(2)})`;
     });
-    msg += `\n\nTotal: R$ ${total.toFixed(2)}`;
     const encoded = encodeURIComponent(msg);
-    const waNumber = '5583996138889'; // Replace with your WhatsApp number
+    const waNumber = '5583996138889';
     window.open(`https://wa.me/${waNumber}?text=${encoded}`, '_blank');
     cart = [];
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -468,107 +416,39 @@
 
   // Inicialização
   renderSliders();
-  // renderAdminList(); // Only render if admin is logged in, or on demand
+  renderAdminList();
   renderCart();
 
   // Animação carrossel de ícones (rolagem contínua)
   const iconsInner = document.getElementById('carousel-icons-inner');
-  if (iconsInner) { // Check if element exists
-    let pos = 0;
-    function animateIcons() {
-      pos -= 0.5; // Slower speed
-      // Check if the first half of items has scrolled out of view
-      if (Math.abs(pos) >= iconsInner.scrollWidth / 2) {
-        pos = 0; // Reset position
-      }
-      iconsInner.style.transform = `translateX(${pos}px)`;
-      requestAnimationFrame(animateIcons);
-    }
-    // Ensure there are enough items for a smooth loop (original + copies should be wider than viewport)
-    if (iconsInner.children.length > 5) { // Arbitrary check, adjust based on item width and viewport
-        animateIcons();
-    }
+  let pos = 0;
+  function animateIcons() {
+    pos -= 1;
+    if (Math.abs(pos) >= iconsInner.scrollWidth / 2) pos = 0;
+    iconsInner.style.transform = `translateX(${pos}px)`;
+    requestAnimationFrame(animateIcons);
   }
+  animateIcons();
 
-
-  // Controles dos sliders (MODIFIED FOR RESPONSIVENESS)
+  // Controles dos sliders
   function setupSlider(prevId, nextId, innerId) {
     const prev = document.getElementById(prevId);
     const next = document.getElementById(nextId);
     const inner = document.getElementById(innerId);
     let index = 0;
-
-    if (!prev || !next || !inner) {
-        console.error("Slider elements not found for:", prevId, nextId, innerId);
-        return;
-    }
-
-    function getVisibleItemsCount() {
-      if (window.innerWidth <= 600) {
-        return 1; // 1 item on mobile
-      } else if (window.innerWidth <= 900) {
-        return 2; // 2 items on tablet
-      } else {
-        return 3; // 3 items on desktop
-      }
-    }
-
-    function updateSliderTransform() {
-      const visibleItems = getVisibleItemsCount();
-      // Fallback if inner.children.length is 0 to avoid division by zero
-      const scrollPercentage = visibleItems > 0 ? (100 / visibleItems) : 0;
-      inner.style.transform = `translateX(-${index * scrollPercentage}%)`;
-    }
-    
-    // Call initially to set the transform based on the current index (0)
-    updateSliderTransform();
-
-
     prev.onclick = () => {
       index = Math.max(index - 1, 0);
-      updateSliderTransform();
+      inner.style.transform = `translateX(-${index * (100/3)}%)`;
     };
-
     next.onclick = () => {
-      const visibleItems = getVisibleItemsCount();
-      const totalItems = inner.children.length;
-      // maxIdx is the highest index we can scroll to.
-      // If totalItems is 5 and visibleItems is 3, maxIdx = 2 (0, 1, 2).
-      // If totalItems is 3 and visibleItems is 3, maxIdx = 0.
-      // If totalItems is less than visibleItems, maxIdx = 0.
-      const maxIdx = Math.max(0, totalItems - visibleItems);
-      index = Math.min(index + 1, maxIdx);
-      updateSliderTransform();
+      const maxIdx = inner.children.length - 3;
+      index = Math.min(index + 1, maxIdx >= 0 ? maxIdx : 0);
+      inner.style.transform = `translateX(-${index * (100/3)}%)`;
     };
-
-    window.addEventListener('resize', () => {
-      // When resizing, re-evaluate the index and transform
-      const visibleItems = getVisibleItemsCount();
-      const totalItems = inner.children.length;
-      const maxIdx = Math.max(0, totalItems - visibleItems);
-      // Ensure index is not out of bounds after resize, then update
-      index = Math.min(index, maxIdx);
-      updateSliderTransform();
-    });
   }
-
   setupSlider('prev-novidades', 'next-novidades', 'novidades-slider');
   setupSlider('prev-destaques', 'next-destaques', 'destaques-slider');
-
-  // Placeholder for logo image if not found
-  document.querySelector('.logo').onerror = function() {
-      this.alt = "Logo Jaciara (imagem não encontrada)";
-      // Optionally, replace with a placeholder text or style
-      this.style.border = "1px solid #ccc";
-      this.style.padding = "5px";
-      this.style.width = "100px"; // Adjust as needed
-      this.style.textAlign = "center";
-      this.style.lineHeight = "40px"; // Adjust based on height
-      this.style.fontSize = "12px";
-      this.style.color = "#666";
-      // this.src = "alternative-logo-or-placeholder.png"; // if you have one
-  };
-
 </script>
 </body>
 </html>
+
